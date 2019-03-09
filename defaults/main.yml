@@ -1,8 +1,8 @@
 ---
 # defaults file for ansible-tftpserver
 tftpserver_apache_links:
-  - 'ESXi_VIBS'
-  - 'ESXi_boot'
+  #- 'ESXi_VIBS'
+  #- 'ESXi_boot'
   - 'images'
   - 'KS'
 tftpserver_apache_root: '/var/www/html'
@@ -57,16 +57,21 @@ tftpserver_boot_menu:
   #   menu_default: false
   #   kernel: 'images/Ubuntu/14.04/install/netboot/ubuntu-installer/amd64/linux'
   #   append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/14.04/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/14.04/install/filesystem.squashfs'
-  - label: 'Ubuntu 14.04.5 (Pre-Seed)'
-    menu_label: 'Install Ubuntu 14.04.5 (Pre-Seed)'
+  #- label: 'Ubuntu 14.04.5 (Pre-Seed)'
+  #  menu_label: 'Install Ubuntu 14.04.5 (Pre-Seed)'
+  #  menu_default: false
+  #  kernel: 'images/Ubuntu/14.04.5/install/netboot/ubuntu-installer/amd64/linux'
+  #  append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/14.04.5/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto url=tftp://{{ tftpserver_bind_address }}/ubuntu_14.04.5_preseed.cfg live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/14.04.5/install/filesystem.squashfs'
+  - label: 'Ubuntu 16.04.6 (Pre-Seed)'
+    menu_label: 'Install Ubuntu 16.04.6 (Pre-Seed)'
     menu_default: false
-    kernel: 'images/Ubuntu/14.04.5/install/netboot/ubuntu-installer/amd64/linux'
-    append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/14.04.5/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto url=tftp://{{ tftpserver_bind_address }}/ubuntu_14.04.5_preseed.cfg live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/14.04.5/install/filesystem.squashfs'
-  - label: 'Ubuntu 16.04.2 (Pre-Seed)'
-    menu_label: 'Install Ubuntu 16.04.2 (Pre-Seed)'
+    kernel: 'images/Ubuntu/16.04.6/install/netboot/ubuntu-installer/amd64/linux'
+    append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/16.04.6/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto url=tftp://{{ tftpserver_bind_address }}/ubuntu_16.04.6_preseed.cfg live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/16.04.6/install/filesystem.squashfs'
+  - label: 'Ubuntu 18.04.2 (Pre-Seed)'
+    menu_label: 'Install Ubuntu 18.04.2 (Pre-Seed)'
     menu_default: false
-    kernel: 'images/Ubuntu/16.04.2/install/netboot/ubuntu-installer/amd64/linux'
-    append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/16.04.2/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto url=tftp://{{ tftpserver_bind_address }}/ubuntu_16.04.2_preseed.cfg live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/16.04.2/install/filesystem.squashfs'
+    kernel: 'images/Ubuntu/18.04.2/install/netboot/ubuntu-installer/amd64/linux'
+    append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/18.04.2/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto url=tftp://{{ tftpserver_bind_address }}/ubuntu_18.04.2_preseed.cfg live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/18.04.2/install/filesystem.squashfs'
 
 # Defines if images folder(s) and isos should be added
 tftpserver_build_images: true
@@ -143,19 +148,20 @@ tftpserver_esxi_vibs:
   - 'http://{{ ansible_fqdn }}/ESXi_VIBS/PernixData/PernixData_bootbank_pernixcore-vSphere5.5.0_1.5.0.2-25498.vib'
 
 tftpserver_images_folders:
-  - 'CentOS/7'
+  #- 'CentOS/7'
   # - 'ESXi/5.1'
   # - 'ESXi/5.1U1'
   # - 'ESXi/5.1U2'
   # - 'ESXi/5.5'
   # - 'ESXi/5.5U1'
   # - 'ESXi/5.5U2'
-  - 'ESXi/5.5U3'
+  #- 'ESXi/5.5U3'
   # - 'ESXi/6.0'
-  - 'ESXi/6.0U1'
+  #- 'ESXi/6.0U1'
   # - 'Ubuntu/12.04'
-  - 'Ubuntu/14.04'
+  #- 'Ubuntu/14.04'
   - 'Ubuntu/16.04'
+  - 'Ubuntu/18.04'
 
 # Define ISO images to download
 tftpserver_iso_images:
@@ -168,12 +174,15 @@ tftpserver_iso_images:
 #  - url: 'http://mirror.pnl.gov/releases/14.04'
 #    file: 'ubuntu-14.04.2-server-amd64.iso'
 #    folder: 'Ubuntu/14.04'
-  - url: 'http://mirrors.kernel.org/ubuntu-releases/14.04'
-    file: 'ubuntu-14.04.5-server-amd64.iso'
-    folder: 'Ubuntu/14.04.5'
+#  - url: 'http://mirrors.kernel.org/ubuntu-releases/14.04'
+#    file: 'ubuntu-14.04.5-server-amd64.iso'
+#    folder: 'Ubuntu/14.04.5'
   - url: 'http://mirrors.kernel.org/ubuntu-releases/16.04'
-    file: 'ubuntu-16.04.2-server-amd64.iso'
-    folder: 'Ubuntu/16.04.2'
+    file: 'ubuntu-16.04.6-server-amd64.iso'
+    folder: 'Ubuntu/16.04.6'
+  - url: 'http://mirrors.us.kernel.org/ubuntu-releases/18.04/'
+    file: 'ubuntu-18.04.2-live-server-amd64.iso'
+    folder: 'Ubuntu/18.04.2'
 
 tftpserver_netboot_file: 'netboot.tar.gz'
 tftpserver_netboot_url: 'http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-amd64/current/images/netboot'
@@ -229,7 +238,7 @@ tftpserver_preseed_files:
   - distro: 'ubuntu'
     version: '14.04.5'
   - distro: 'ubuntu'
-    version: '16.04.2'
+    version: '16.04.6'
 
 # Define mirror...(us.archive.ubuntu.com)
 tftpserver_preseed_mirror: '{{ ansible_hostname }}'
@@ -248,7 +257,7 @@ tftpserver_preseed_packages:
 # Defines disk to install to during pre-seed TFTP/PXE install
 # If using raid define more than one single disk device
 tftpserver_preseed_partition_disk:
-  - '/dev/sda'
+  - '/dev/vda'
   # - '/dev/sdb'
 
 # Defines partitioning method....lvm, regular or crypto
