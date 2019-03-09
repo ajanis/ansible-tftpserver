@@ -180,12 +180,12 @@ tftpserver_iso_images:
   - url: 'http://mirrors.kernel.org/ubuntu-releases/16.04'
     file: 'ubuntu-16.04.6-server-amd64.iso'
     folder: 'Ubuntu/16.04.6'
-  - url: 'http://mirrors.us.kernel.org/ubuntu-releases/18.04/'
-    file: 'ubuntu-18.04.2-live-server-amd64.iso'
+  - url: 'http://cdimage.ubuntu.com/releases/18.04.2/release/'
+    file: 'ubuntu-18.04.2-server-amd64.iso'
     folder: 'Ubuntu/18.04.2'
 
 tftpserver_netboot_file: 'netboot.tar.gz'
-tftpserver_netboot_url: 'http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-amd64/current/images/netboot'
+tftpserver_netboot_url: 'http://archive.ubuntu.com/ubuntu/dists/bionic-updates/main/installer-amd64/current/images/netboot'
 
 # Defines if custom partitioning is required
 tftpserver_preseed_expert_recipe_partitioning: false
@@ -233,12 +233,14 @@ tftpserver_preseed_expert_recipe_partitions:
 
 # Defines preseed.cfg to generate
 tftpserver_preseed_files:
-  - distro: 'ubuntu'
-    version: '12.04.5'
-  - distro: 'ubuntu'
-    version: '14.04.5'
+#  - distro: 'ubuntu'
+#    version: '12.04.5'
+#  - distro: 'ubuntu'
+#    version: '14.04.5'
   - distro: 'ubuntu'
     version: '16.04.6'
+  - distro: 'ubuntu'
+    version: '18.04.2'
 
 # Define mirror...(us.archive.ubuntu.com)
 tftpserver_preseed_mirror: '{{ ansible_hostname }}'
