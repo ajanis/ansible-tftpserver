@@ -88,15 +88,6 @@
 - name: build_images | Configuring ESXi Kickstart File(s)
   template:
     src: "var/lib/tftpboot/KS/ESX_KS.CFG.j2"
-    dest: "{{ tftpserver_tftpboot_dir }}/KS/ESX_KS.CFG"
-  when: >
-        (tftpserver_esxi_create_host_kickstart_configs is defined and
-        not tftpserver_esxi_create_host_kickstart_configs) or
-        tftpserver_esxi_create_host_kickstart_configs is not defined
-
-- name: build_images | Configuring ESXi Kickstart File(s)
-  template:
-    src: "var/lib/tftpboot/KS/ESX_KS.CFG.j2"
     dest: "{{ tftpserver_tftpboot_dir }}/KS/ESX_KS_{{ item.name }}.CFG"
   with_items: '{{ tftpserver_esxi_hosts }}'
   when: >
