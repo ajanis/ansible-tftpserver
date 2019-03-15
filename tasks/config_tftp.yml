@@ -32,6 +32,14 @@
     group: "nogroup"
   with_items: '{{ tftpserver_preseed_files }}'
 
+- name: config_tftp | Generating Additional Distro Kickstart Files
+  template:
+    src: "var/lib/tftpboot/kickstart.ks.j2"
+    dest: "{{ tftpserver_tftpboot_dir }}/{{ item.distro }}_{{ item.version }}.ks"
+    owner: "nobody"
+    group: "nogroup"
+  with_items: '{{ tftpserver_kickstart_files }}'
+
 - name: config_tftp | Configuring txt.cfg
   template:
     src: "var/lib/tftpboot/ubuntu-installer/amd64/boot-screens/txt.cfg.j2"
