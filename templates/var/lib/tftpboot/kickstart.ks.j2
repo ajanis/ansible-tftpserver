@@ -1,0 +1,49 @@
+install
+url --url http://{{ tftpserver_bind_address }}/images/CentOS/{{ item.version }}
+lang en_US.UTF-8
+keyboard us
+timezone --utc {{ timezone }}
+network --noipv6 --onboot=yes --bootproto dhcp
+authconfig --enableshadow --enablemd5
+rootpw --iscrypted CHANGEME
+firewall --disabled
+selinux --disabled
+bootloader --location=mbr --driveorder={{ tftpserver_preseed_partition_disk }} --append="crashkernel=auth rhgb"
+
+# Disk Partitioning
+clearpart --all --initlabel --drives={{ tftpserver_preseed_partition_disk }}
+part /boot --fstype=ext4 --size=200
+part pv.1 --grow --size=1
+volgroup vg1 --pesize=4096 pv.1
+
+logvol / --fstype=ext4 --name=lv001 --vgname=vg1 --size=6000
+logvol /var --fstype=ext4 --name=lv002 --vgname=vg1 --grow --size=1
+logvol swap --name=lv003 --vgname=vg1 --size=2048
+# END of Disk Partitioning
+
+# Make sure we reboot into the new system when we are finished
+reboot
+
+# Package Selection
+%packages --nobase --excludedocs
+@core
+-*firmware
+-iscsi*
+-fcoe*
+-b43-openfwwf
+kernel-firmware
+-efibootmgr
+wget
+sudo
+perl
+
+%pre
+
+%post --log=/root/install-post.log
+(
+PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export PATH
+
+# PLACE YOUR POST DIRECTIVES HERE
+) 2>&1 >/root/install-post-sh.log
+EOF
