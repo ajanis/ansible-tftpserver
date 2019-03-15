@@ -9,6 +9,7 @@ label {{ item.label }}
 {%     endif %}
 {%     if item.localboot is defined and item.localboot %}
   localboot 0
+  
 {%     endif %}
 {%     if item.kernel is defined %}
   kernel {{ item.kernel }}
