@@ -261,7 +261,7 @@ tftpserver_preseed_packages:
 # Defines disk to install to during pre-seed TFTP/PXE install
 # If using raid define more than one single disk device
 tftpserver_preseed_partition_disk:
-  - '/dev/vda'
+  - '/dev/sda'
   # - '/dev/sdb'
 
 # Defines partitioning method....lvm, regular or crypto
