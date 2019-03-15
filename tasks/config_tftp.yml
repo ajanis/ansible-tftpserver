@@ -24,6 +24,13 @@
     owner: "nobody"
     group: "nogroup"
 
+- name: config_tftp | Ensuring Image Folders Exist For Apache
+  file:
+    path: "{{ tftpserver_tftpboot_dir }}/{{ item }}"
+    state: "directory"
+  with_items: '{{ tftpserver_apache_links }}'
+  when: tftpserver_apache_links is defined
+
 - name: config_tftp | Generating Additional Distro Preseed Files
   template:
     src: "var/lib/tftpboot/preseed.cfg.j2"
@@ -35,7 +42,7 @@
 - name: config_tftp | Generating Additional Distro Kickstart Files
   template:
     src: "var/lib/tftpboot/kickstart.ks.j2"
-    dest: "{{ tftpserver_tftpboot_dir }}/{{ item.distro }}_{{ item.version }}.ks"
+    dest: "{{ tftpserver_tftpboot_dir }}/ks/{{ item.distro }}_{{ item.version }}.ks"
     owner: "nobody"
     group: "nogroup"
   with_items: '{{ tftpserver_kickstart_files }}'
