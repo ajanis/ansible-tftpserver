@@ -3,3 +3,21 @@
   apt:
     name: "apache2"
     state: "present"
+
+- name: debian | Configuring rsyslog to allow remote logging
+  copy:
+    src: "etc/rsyslog-ubuntu.conf"
+    dest: "/etc/rsyslog.conf"
+    owner: "root"
+    group: "root"
+  notify:
+    - restart rsyslog
+
+- name: debian | Configuring rsyslog parsing for SIAD build scripts
+  copy:
+    src: "etc/rsyslog.d/99-siad-deploy.conf"
+    dest: "/etc/rsyslog.d/99-siad-deploy.conf"
+    owner: "root"
+    group: "root"
+  notify:
+    - restart rsyslog
