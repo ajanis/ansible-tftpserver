@@ -1,0 +1,30 @@
+
+- name: config_tftp | Generating Custom TFTP files
+  template:
+    src: '{{ item[0].pxe_template }}'
+    dest: '{{ tftpserver_tftpboot_dir }}/pxelinux.cfg/01-{{ item[1].mac_address }}'
+    owner: "nobody"
+    group: "nogroup"
+  with_subelements: 
+    - '{{ custom_project_pxe_configs }}'
+    - hosts
+
+- name: config_tftp | Generating Custom Preseed/Kickstart files
+  template:
+    src: '{{ item[0].preseed_template }}'
+    dest: '{{ tftpserver_tftpboot_dir }}/custom-installer/{{ item[0].project }}.cfg'
+    owner: "nobody"
+    group: "nogroup"
+  with_subelements: 
+    - '{{ custom_project_pxe_configs }}'
+    - hosts
+
+- name: config_tftp | Configuring syslinux.cfg
+  debug:
+        msg: >
+          {{ item[0].pxe_template }}
+          {{ item[1].hostname }}
+          {{ item[0].project }}
+  with_subelements: 
+    - '{{ custom_project_pxe_configs }}'
+    - hosts

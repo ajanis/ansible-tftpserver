@@ -1,0 +1,16 @@
+# {{ ansible_managed }}
+path ubuntu-installer/amd64/boot-screens/
+include ubuntu-installer/amd64/boot-screens/stdmenu.cfg
+default ubuntu-installer/amd64/boot-screens/vesamenu.c32
+prompt 0
+timeout 300
+
+label local
+  menu label ^Boot from hard drive
+  localboot 0
+
+label {{ item[0].project }} : {{ item[1].hostname }} network install
+  menu label ^{{ item[1].hostname }} network install
+  menu default
+  kernel {{ item[0].kernel }} 
+  append {{ item[0].append }} hostname={{ item[1].hostname }}

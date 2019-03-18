@@ -1,0 +1,30 @@
+install
+url --url http://{{ tftpserver_bind_address }}/images/CentOS/7
+lang en_US.UTF-8
+keyboard us
+rootpw --iscrypted $6$rounds=656000$YWRhOGM3ZjVhM2$tRbCWRSgc.dK/fYWlu4BPea338iXSDmrrp.VsIKBfjdDu.xEIzlfwaYHaTyyABYs.Rdyz3gm6BuIES4lFdbSe0
+firewall --disabled
+authconfig --enableshadow --passalgo=sha512
+selinux --disabled
+timezone --utc {{ timezone }}
+eula --agreed
+reboot
+ignoredisk --only-use={{ tftpserver_preseed_partition_disk|join (' ') }}
+bootloader --location=mbr
+zerombr
+clearpart --all --initlabel
+part /boot --fstype="ext4" --ondisk={{ tftpserver_preseed_partition_disk|join (' ') }} --size=500
+part pv.01 --fstype="lvmpv" --ondisk={{ tftpserver_preseed_partition_disk|join (' ') }} --size=1 --grow
+volgroup centos pv.01
+logvol swap  --fstype="swap" --size=1024 --name=swap --vgname=centos
+logvol /  --fstype="ext4" --size=1 --name=root --vgname=centos --grow
+%packages --nobase --ignoremissing
+@core
+%end
+%post
+mkdir -p /root/.ssh
+chmod 700 /root/.ssh
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC29plb9A6fagU+g+zFX6Bo6SUGj58Z/6nxngV/kd95J0UJc8c3zApz6Q3s6gO1+86rpHoZOKauUnXb/Kcg41ncpluDsLxu1gChY8D8jsAPxG18GxlJuB8d5rgFdX9VnCWNg4w9VuYvwv3n/7hoELyU/oC68to3VIIB4yLMGhuGY3JOqwmpckl1/NhQZCeP+BTXyEib2GjJ4jqbpKXuId8/gp3UpHQ37enLF8eLHH7ue4+TxL1F1uSw3phkqLvhRWPdsYTP4ttfcReqOLpJet87yUiO0xKsUryBuCAngeSUP4hYGJT8i3RbGSvyoXoLJEGIt7hFLP7dI78WPlOUIHHXNml62UKF3c8mFww4qRB95RRWTrILSftkjlHqFSIVxXNtS+AMggc60HT8L8zi5BhHg66PHAo/4JWLmnfgfdMbEqpWxxa21RhTv0LySXs1IOWspXAseNWrxBCrmdxPudMPXSG6f4Gc7STs72MTWQ/0ti6rOsgMvspLshM+wWJ6L0dLRUbti+hHBcdja/6J5MrOMUzgzT+VLmJG4cNP2dAfqseW6t92B9RGP1rICja5PTrIvy0kh6lyVkxnkWlC10WJo2m+VyifPjIPBkekJDfKic9VKe05glMWl8lUillQ0Y9kejFzoLXX8rfbdTmCJYg3qXTrZ4lsZQjr8dGSI4HMqw==" >> /root/.ssh/authorized_keys
+chmod 600 /root/.ssh/authorized_keys
+restorecon -R /root/.ssh/
+%end
