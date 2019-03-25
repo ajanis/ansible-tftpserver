@@ -119,6 +119,6 @@
 
 - name: build_images | Copy SIAD Build Scripts
   copy:
-    src: scripts/
+    src: att-siad-ufi-scripts/scripts/
     dest: '{{ tftpserver_tftpboot_dir }}/siad/scripts/'
     mode: 0755
