@@ -1,0 +1,3 @@
+[submodule "files/att-siad-ufi-scripts"]
+	path = files/att-siad-ufi-scripts
+	url = git@github.wwt.com:janisa/att-siad-ufi-scripts.git
