@@ -1,6 +1,10 @@
 - hosts: pxe
   become: true
-  roles:
-    - role: common
-    - role: dnsmasq
-    - role: tftpserver
+  gather_facts: true
+  tasks:
+    - import_role:
+        name: common
+    - import_role:
+        name: dnsmasq
+    - import_role:
+        name: tftpserver
