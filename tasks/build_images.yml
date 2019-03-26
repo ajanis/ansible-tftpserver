@@ -109,19 +109,5 @@
   with_items: '{{ tftpserver_vmware_iso_images }}'
   when: tftpserver_vmware_iso_images is defined
 
-- name: build_images | Downloading ONIE Install Binaries
-  get_url:
-    url: "{{ item.url }}"
-    dest: "{{ tftpserver_tftpboot_dir }}/{{ item.dest }}"
-    force: no
-  with_items: '{{ tftpserver_bin_images }}'
-  when: tftpserver_bin_images is defined
-
-- name: build_images | Copy SIAD Build Scripts
-  synchronize:
-    src: att-siad-ufi-scripts/scripts/
-    dest: '{{ tftpserver_tftpboot_dir }}/siad/scripts/'
-    delete: yes
-    recursive: yes
-    owner: no
-    group: no
+- include: onie_build_images.yml
+  when: tftpserver_onie_build_images

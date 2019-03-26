@@ -1,0 +1,34 @@
+- name: build_images | Downloading ONIE Install Binaries
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ tftpserver_tftpboot_dir }}/{{ item.dest }}"
+    force: no
+  with_items: '{{ tftpserver_bin_images }}'
+  when: tftpserver_bin_images is defined
+
+- name: build_images | Copy SIAD Build Scripts
+  synchronize:
+    src: att-siad-ufi-scripts/scripts/
+    dest: '{{ tftpserver_tftpboot_dir }}/siad/scripts/'
+    delete: yes
+    recursive: yes
+    owner: no
+    group: no
+
+- name: build_images | Upload SIAD Firmware Images
+  synchronize:
+    src: 'siad/{{ item }}/'
+    dest: '{{ tftpserver_tftpboot_dir }}/siad/{{ item }}/'
+    delete: yes
+    recursive: yes
+    owner: no
+    group: no
+  with_items:
+    - 10ge-kr
+    - bios
+    - bmc
+    - bsp
+    - cpu_cpld
+    - i210
+    - mb_cpld
+    - ucd
