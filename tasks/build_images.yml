@@ -108,6 +108,3 @@
     dest: "{{ tftpserver_tftpboot_dir }}/ESXi_boot/{{ item.version }}/boot.cfg"
   with_items: '{{ tftpserver_vmware_iso_images }}'
   when: tftpserver_vmware_iso_images is defined
-
-- include: onie_build_images.yml
-  when: tftpserver_onie_build_images
