@@ -3,9 +3,21 @@
 
 - include: debian.yml
   when: ansible_os_family == "Debian"
+  tags:
+    - tftp_config
+    - build_images
+    - onie_images
 
-- include: config_tftp.yml
+- name: Configure TFTP Server
+  include_tasks: config_tftp.yml
   when: tftpserver_config_tftp
+  tags: tftp_config
 
-- include: build_images.yml
+- name: Set up OS Build Images
+  include: build_images.yml
   when: tftpserver_build_images
+  tags: build_images
+
+- name: Install ONIE Build Images and Scripts
+  include: onie_build_images.yml
+  tags: onie_images
