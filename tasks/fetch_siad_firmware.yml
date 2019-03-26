@@ -1,0 +1,12 @@
+- name: build_images | Pull SIAD firmware images to Ansible host
+  command: rsync -avp root@{{ atc_resource_host }}:/var/www/html/siad/{{ item }}/ {{ role_path }}/files/siad/{{ item }}/
+  delegate_to: localhost
+  with_items:
+    - 10ge-kr
+    - bios
+    - bmc
+    - bsp
+    - cpu_cpld
+    - i210
+    - mb_cpld
+    - ucd

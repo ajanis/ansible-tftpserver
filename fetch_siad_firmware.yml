@@ -1,0 +1,8 @@
+- hosts: pxe
+  become: false
+  gather_facts: true
+  remote_user: root
+  tasks:
+    - import_role:
+        name: tftpserver
+        tasks_from: siad_firmware_fetch.yml
