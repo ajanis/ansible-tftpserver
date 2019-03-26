@@ -118,7 +118,10 @@
   when: tftpserver_bin_images is defined
 
 - name: build_images | Copy SIAD Build Scripts
-  copy:
+  synchronize:
     src: att-siad-ufi-scripts/scripts/
     dest: '{{ tftpserver_tftpboot_dir }}/siad/scripts/'
-    mode: 0755
+    delete: yes
+    recursive: yes
+    owner: no
+    group: no
