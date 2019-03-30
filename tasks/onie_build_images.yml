@@ -32,3 +32,12 @@
     - i210
     - mb_cpld
     - ucd
+
+- name: Fix SIAD Built Script and Firmware permissions
+  file:
+    path: '{{ tftpserver_tftpboot_dir }}/siad/'
+    state: directory
+    recurse: yes
+    mode: 0755
+    owner: "nobody"
+    group: "nogroup"
