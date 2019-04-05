@@ -6,6 +6,16 @@
   with_items: '{{ tftpserver_bin_images }}'
   when: tftpserver_bin_images is defined
 
+- name: build_images | Configuring Apache2 links to ONIE Install Binaries
+  file:
+    src: "{{ tftpserver_tftpboot_dir }}/{{ item.dest }}"
+    dest: "{{ tftpserver_apache_root }}/{{ item.name }}"
+    owner: "www-data"
+    group: "www-data"
+    state: "link"
+  with_items: '{{ tftpserver_bin_images }}'
+  when: tftpserver_bin_images is defined
+
 - name: build_images | Copy SIAD Build Scripts
   synchronize:
     src: att-siad-ufi-scripts/scripts/
