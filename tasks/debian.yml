@@ -4,6 +4,22 @@
     name: "apache2"
     state: "present"
 
+- name: debian | Set Apache2 User
+  lineinfile:
+    dest: /etc/apache2/envvars
+    state: present
+    regexp: '^export APACHE_RUN_USER=.*'
+    line: "export APACHE_RUN_USER=nobody"
+  notify: restart apache2
+
+- name: debian | Set Apache2 Group
+  lineinfile:
+    dest: /etc/apache2/envvars
+    state: present
+    regexp: '^export APACHE_RUN_GROUP=.*'
+    line: "export APACHE_RUN_GROUP=nogroup"
+  notify: restart apache2
+
 - name: debian | Configuring rsyslog to allow remote logging
   copy:
     src: "etc/rsyslog-ubuntu.conf"
