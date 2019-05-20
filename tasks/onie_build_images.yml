@@ -10,8 +10,8 @@
   file:
     src: "{{ tftpserver_tftpboot_dir }}/{{ item.dest }}"
     dest: "{{ tftpserver_apache_root }}/{{ item.name }}"
-    owner: "www-data"
-    group: "www-data"
+    owner: "nobody"
+    group: "nogroup"
     state: "link"
   with_items: '{{ tftpserver_bin_images }}'
   when: tftpserver_bin_images is defined
