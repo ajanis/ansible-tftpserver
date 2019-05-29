@@ -27,7 +27,7 @@
 
 - name: build_images | Upload SIAD Firmware Images
   synchronize:
-    src: 'siad/{{ item }}/'
+    src: 'siad-firmware/{{ item }}/'
     dest: '{{ tftpserver_tftpboot_dir }}/siad/{{ item }}/'
     delete: yes
     recursive: yes
@@ -43,7 +43,7 @@
     - mb_cpld
     - ucd
 
-- name: Fix SIAD Built Script and Firmware permissions
+- name: Fix SIAD Build Script and Firmware permissions
   file:
     path: '{{ tftpserver_tftpboot_dir }}/siad/'
     state: directory
