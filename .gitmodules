@@ -1,6 +1,3 @@
 [submodule "files/att-siad-ufi-scripts"]
 	path = files/att-siad-ufi-scripts
 	url = git@github.wwt.com:janisa/att-siad-ufi-scripts.git
-[submodule "files/siad-firmware"]
-	path = files/siad-firmware
-	url = git@github.wwt.com:janisa/siad-firmware.git
