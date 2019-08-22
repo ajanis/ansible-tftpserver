@@ -1,20 +1,22 @@
-- name: build_images | Downloading ONIE Install Binaries
-  get_url:
-    url: "{{ item.url }}"
-    dest: "{{ tftpserver_tftpboot_dir }}/{{ item.dest }}"
-    force: no
-  with_items: '{{ tftpserver_bin_images }}'
-  when: tftpserver_bin_images is defined
+#- name: build_images | Uploading DIAG
+#  file:
+#    src: "siad-firmware//DIAG-{{ siad_ufi_diag_version }}/ONIE.bin/onie-installer-Ubuntu.16.04_{{ siad_ufi_diag_version }}_dhcp.bin"
+#    dest: "{{ tftpserver_tftpboot_dir }}/onie-installer/onie-installer.bin"
+#    owner: "nobody"
+#    group: "nogroup"
+#
+#- name: build_images | Uploading NOS
+#  file:
+#    src: "siad-firmware/vyatta/NOS_Chesterfield_{{ siad_vyatta_version }}/vyatta-{{ siad_vyatta_version }}-amd64-vrouter.iso-ONIE.bin"
+#    dest: "{{ tftpserver_tftpboot_dir }}/nos-installer/onie-installer.bin"
+#    owner: "nobody"
+#    group: "nogroup"
 
-- name: build_images | Configuring Apache2 links to ONIE Install Binaries
-  file:
-    src: "{{ tftpserver_tftpboot_dir }}/{{ item.dest }}"
-    dest: "{{ tftpserver_apache_root }}/{{ item.name }}"
-    owner: "nobody"
-    group: "nogroup"
-    state: "link"
-  with_items: '{{ tftpserver_bin_images }}'
-  when: tftpserver_bin_images is defined
+- name: build_images | Generate SIAD build script environment file
+  template:
+    src: att-siad-ufi-scripts/env.sh.j2
+    dest: '{{ role_path }}/files/att-siad-ufi-scripts/scripts/env.sh'
+  delegate_to: localhost
 
 - name: build_images | Copy SIAD Build Scripts
   synchronize:
@@ -42,6 +44,18 @@
     - i210
     - mb_cpld
     - ucd
+    - vyatta
+    - diag
+
+- name: build_images | Configuring Apache2 links to ONIE Install Binaries
+  file:
+    src: "{{ tftpserver_tftpboot_dir }}/siad/{{ item.dest }}"
+    dest: "{{ tftpserver_apache_root }}/{{ item.name }}"
+    owner: "nobody"
+    group: "nogroup"
+    state: "link"
+  with_items: '{{ tftpserver_bin_images }}'
+  when: tftpserver_bin_images is defined
 
 - name: Fix SIAD Build Script and Firmware permissions
   file:
