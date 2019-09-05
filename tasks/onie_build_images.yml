@@ -2,15 +2,15 @@
 #  file:
 #    src: "siad-firmware//DIAG-{{ siad_ufi_diag_version }}/ONIE.bin/onie-installer-Ubuntu.16.04_{{ siad_ufi_diag_version }}_dhcp.bin"
 #    dest: "{{ tftpserver_tftpboot_dir }}/onie-installer/onie-installer.bin"
-#    owner: "nobody"
-#    group: "nogroup"
+#    owner: "{{ web_user }}"
+#    group: "{{ web_group }}"
 #
 #- name: build_images | Uploading NOS
 #  file:
 #    src: "siad-firmware/vyatta/NOS_Chesterfield_{{ siad_vyatta_version }}/vyatta-{{ siad_vyatta_version }}-amd64-vrouter.iso-ONIE.bin"
 #    dest: "{{ tftpserver_tftpboot_dir }}/nos-installer/onie-installer.bin"
-#    owner: "nobody"
-#    group: "nogroup"
+#    owner: "{{ web_user }}"
+#    group: "{{ web_group }}"
 
 - name: build_images | Generate SIAD build script environment file
   template:
@@ -51,8 +51,8 @@
   file:
     src: "{{ tftpserver_tftpboot_dir }}/siad/{{ item.dest }}"
     dest: "{{ tftpserver_apache_root }}/{{ item.name }}"
-    owner: "nobody"
-    group: "nogroup"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
     state: "link"
   with_items: '{{ tftpserver_bin_images }}'
   when: tftpserver_bin_images is defined
@@ -63,5 +63,5 @@
     state: directory
     recurse: yes
     mode: 0755
-    owner: "nobody"
-    group: "nogroup"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"

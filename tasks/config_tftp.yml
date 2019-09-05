@@ -21,8 +21,8 @@
   template:
     src: "var/lib/tftpboot/grub.cfg.j2"
     dest: "{{ tftpserver_tftpboot_dir }}/grub.cfg"
-    owner: "nobody"
-    group: "nogroup"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
 
 - name: config_tftp | Ensuring Image Folders Exist For Apache
   file:
@@ -35,46 +35,46 @@
   template:
     src: "var/lib/tftpboot/preseed.cfg.j2"
     dest: "{{ tftpserver_tftpboot_dir }}/preseed/{{ item.distro }}_{{ item.version }}_preseed.cfg"
-    owner: "nobody"
-    group: "nogroup"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
   with_items: '{{ tftpserver_preseed_files }}'
 
 - name: config_tftp | Generating Additional Distro Kickstart Files
   template:
     src: "var/lib/tftpboot/kickstart.ks.j2"
     dest: "{{ tftpserver_tftpboot_dir }}/ks/{{ item.distro }}_{{ item.version }}.ks"
-    owner: "nobody"
-    group: "nogroup"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
   with_items: '{{ tftpserver_kickstart_files }}'
 
 - name: config_tftp | Configuring txt.cfg
   template:
     src: "var/lib/tftpboot/ubuntu-installer/amd64/boot-screens/txt.cfg.j2"
     dest: "{{ tftpserver_tftpboot_dir }}/ubuntu-installer/amd64/boot-screens/txt.cfg"
-    owner: "nobody"
-    group: "nogroup"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
   notify: "restart dnsmasq"
 
 - name: config_tftp | Configuring menu.cfg
   template:
     src: "var/lib/tftpboot/ubuntu-installer/amd64/boot-screens/menu.cfg.j2"
     dest: "{{ tftpserver_tftpboot_dir }}/ubuntu-installer/amd64/boot-screens/menu.cfg"
-    owner: "nobody"
-    group: "nogroup"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
 
 - name: config_tftp | Configuring prompt.cfg
   template:
     src: "var/lib/tftpboot/ubuntu-installer/amd64/boot-screens/prompt.cfg.j2"
     dest: "{{ tftpserver_tftpboot_dir }}/ubuntu-installer/amd64/boot-screens/prompt.cfg"
-    owner: "nobody"
-    group: "nogroup"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
 
 - name: config_tftp | Configuring syslinux.cfg
   template:
     src: "var/lib/tftpboot/ubuntu-installer/amd64/boot-screens/syslinux.cfg.j2"
     dest: "{{ tftpserver_tftpboot_dir }}/ubuntu-installer/amd64/boot-screens/syslinux.cfg"
-    owner: "nobody"
-    group: "nogroup"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
 
 - name: config_tftp | Unmounting ISO Images
   mount:
@@ -99,7 +99,5 @@
     path: "{{ tftpserver_tftpboot_dir }}"
     state: "directory"
     recurse: yes
-    owner: "nobody"
-    group: "nogroup"
-
-
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"

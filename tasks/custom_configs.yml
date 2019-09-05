@@ -3,8 +3,8 @@
   template:
     src: '{{ item[0].pxe_template }}'
     dest: '{{ tftpserver_tftpboot_dir }}/pxelinux.cfg/01-{{ item[1].mac_address }}'
-    owner: "nobody"
-    group: "nogroup"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
   with_subelements: 
     - '{{ custom_project_pxe_configs }}'
     - hosts
@@ -13,8 +13,8 @@
   template:
     src: '{{ item[0].preseed_template }}'
     dest: '{{ tftpserver_tftpboot_dir }}/custom-installer/{{ item[0].project }}.cfg'
-    owner: "nobody"
-    group: "nogroup"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
   with_subelements: 
     - '{{ custom_project_pxe_configs }}'
     - hosts
