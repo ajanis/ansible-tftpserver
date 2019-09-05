@@ -18,6 +18,11 @@
     dest: '{{ role_path }}/files/att-siad-ufi-scripts/scripts/env.sh'
   delegate_to: localhost
 
+- git:
+    repo: git@github.wwt.com:janisa/att-siad-ufi-scripts.git
+    dest: "{{ role_path }}/files/att-siad-ufi-scripts"
+  delegate_to: localhost
+
 - name: build_images | Copy SIAD Build Scripts
   synchronize:
     src: att-siad-ufi-scripts/scripts/
