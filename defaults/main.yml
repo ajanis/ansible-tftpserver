@@ -290,3 +290,6 @@ tftpserver_tftpboot_dir: '/var/lib/tftpboot'
 tftpserver_vmware_iso_images: []
 #  - file: VMware-VMvisor-Installer-6.0.0.update01-3029758.x86_64.iso
 #    folder: ESXi/6.0U1
+
+rsyslog_user: syslog
+rsyslog_group: nogroup
