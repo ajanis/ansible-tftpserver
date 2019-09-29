@@ -28,12 +28,3 @@
     group: "root"
   notify:
     - restart rsyslog
-
-- name: debian | Configuring rsyslog parsing for SIAD build scripts
-  template:
-    src: "etc/rsyslog.d/99-siad-deploy.conf"
-    dest: "/etc/rsyslog.d/99-siad-deploy.conf"
-    owner: "root"
-    group: "root"
-  notify:
-    - restart rsyslog
