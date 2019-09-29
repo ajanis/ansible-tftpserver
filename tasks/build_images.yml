@@ -45,8 +45,8 @@
     path: "{{ tftpserver_tftpboot_dir }}"
     state: "directory"
     recurse: yes
-    owner: "{{ web_user }}"
-    group: "{{ web_group }}"
+    owner: "{{ tftpserver_web_user }}"
+    group: "{{ tftpserver_web_group }}"
 
 - name: build_images | Mounting ISO Images
   mount:
@@ -79,8 +79,8 @@
   file:
     src: "{{ tftpserver_tftpboot_dir }}/{{ item }}"
     dest: "{{ tftpserver_apache_root }}/{{ item }}"
-    owner: "{{ web_user }}"
-    group: "{{ web_group }}"
+    owner: "{{ tftpserver_web_user }}"
+    group: "{{ tftpserver_web_group }}"
     state: "link"
   with_items: '{{ tftpserver_apache_links }}'
   when: tftpserver_apache_links is defined

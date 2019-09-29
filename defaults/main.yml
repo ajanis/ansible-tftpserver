@@ -73,6 +73,10 @@ tftpserver_boot_menu:
     kernel: 'images/Ubuntu/18.04.2/install/netboot/ubuntu-installer/amd64/linux'
     append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/18.04.2/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto url=tftp://{{ tftpserver_bind_address }}/ubuntu_18.04.2_preseed.cfg live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/18.04.2/install/filesystem.squashfs'
 
+
+# Custom pxe templates and resources
+tftpserver_custom_project_pxe_configs: []
+
 # Defines if images folder(s) and isos should be added
 tftpserver_build_images: true
 
@@ -291,5 +295,8 @@ tftpserver_vmware_iso_images: []
 #  - file: VMware-VMvisor-Installer-6.0.0.update01-3029758.x86_64.iso
 #    folder: ESXi/6.0U1
 
-rsyslog_user: syslog
-rsyslog_group: nogroup
+tftpserver_web_user: www-data
+tftpserver_web_group: www-data
+
+tftpserver_rsyslog_user: syslog
+tftpserver_rsyslog_group: nogroup

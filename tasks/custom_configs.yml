@@ -3,20 +3,20 @@
   template:
     src: '{{ item[0].pxe_template }}'
     dest: '{{ tftpserver_tftpboot_dir }}/pxelinux.cfg/01-{{ item[1].mac_address }}'
-    owner: "{{ web_user }}"
-    group: "{{ web_group }}"
+    owner: "{{ tftpserver_web_user }}"
+    group: "{{ tftpserver_web_group }}"
   with_subelements: 
-    - '{{ custom_project_pxe_configs }}'
+    - '{{ tftpserver_custom_project_pxe_configs }}'
     - hosts
 
 - name: config_tftp | Generating Custom Preseed/Kickstart files
   template:
     src: '{{ item[0].preseed_template }}'
     dest: '{{ tftpserver_tftpboot_dir }}/custom-installer/{{ item[0].project }}.cfg'
-    owner: "{{ web_user }}"
-    group: "{{ web_group }}"
+    owner: "{{ tftpserver_web_user }}"
+    group: "{{ tftpserver_web_group }}"
   with_subelements: 
-    - '{{ custom_project_pxe_configs }}'
+    - '{{ tftpserver_custom_project_pxe_configs }}'
     - hosts
 
 - name: config_tftp | Configuring syslinux.cfg
@@ -26,5 +26,5 @@
           {{ item[1].hostname }}
           {{ item[0].project }}
   with_subelements: 
-    - '{{ custom_project_pxe_configs }}'
+    - '{{ tftpserver_custom_project_pxe_configs }}'
     - hosts
