@@ -4,9 +4,7 @@
 - include: debian.yml
   when: ansible_os_family == "Debian"
   tags:
-    - tftp_config
-    - build_images
-    - onie_images
+    - always
 
 - name: Configure TFTP Server
   include_tasks: config_tftp.yml
