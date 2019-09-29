@@ -18,6 +18,6 @@
   when: tftpserver_build_images
   tags: build_images
 
-- name: Install ONIE Build Images and Scripts
-  include: onie_build_images.yml
-  tags: onie_images
+#- name: Install ONIE Build Images and Scripts
+#  include: onie_build_images.yml
+#  tags: onie_images
