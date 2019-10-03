@@ -299,4 +299,4 @@ tftpserver_web_user: www-data
 tftpserver_web_group: www-data
 
 tftpserver_rsyslog_user: syslog
-tftpserver_rsyslog_group: nogroup
+tftpserver_rsyslog_group: adm
