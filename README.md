@@ -1,12 +1,21 @@
-Role Name
-=========
+# Ansible-TFTPServer
+
+<!-- MarkdownTOC -->
+
+- Requirements
+- Role Variables
+- Dependencies
+- Example Playbook
+- License
+- Author Information
+
+<!-- /MarkdownTOC -->
 
 Builds out a fully functional PXE/TFTP Server for OS deployments..
 (Ubuntu included using Netboot)
 Pre-Seed file template included and ESXi scripted install ready.
 
-Requirements
-------------
+## Requirements
 
 If ESXi scripted installs are needed you MUST upload the appropriate ISO's
 to /var/lib/tftpboot/images and configure them in `defaults/main.yml`
@@ -16,10 +25,8 @@ tftpserver_vmware_iso_images:
     folder: ESXi/6.0U1
 ```
 
-Role Variables
---------------
+## Role Variables
 ```
----
 # defaults file for ansible-tftpserver
 tftpserver_apache_links:
   - 'ESXi_VIBS'
@@ -43,41 +50,41 @@ tftpserver_boot_menu:
     menu_label: '^Boot from hard drive'
     menu_default: true
     localboot: true
-  # - label: 'install'
-  #  menu_label: Install
-  #  menu_default: false
-  #  kernel: 'ubuntu-installer/amd64/linux'
-  #  append: 'vga=788 initrd=ubuntu-installer/amd64/initrd.gz -- quiet'
-  # - label: 'cli'
-  #  menu_label: 'Command-line install'
-  #  menu_default: false
-  #  kernel: 'ubuntu-installer/amd64/linux'
-  #  append: 'tasks=standard pkgsel/language-pack-patterns= pkgsel/install-language-support=false vga=788 initrd=ubuntu-installer/amd64/initrd.gz -- quiet'
-  # - label: 'auto-install Ubuntu Netboot (Latest)'
-  #   menu_label: 'Automated install Ubuntu (Latest)'
-  #   menu_default: false
-  #   kernel: 'ubuntu-installer/amd64/linux'
-  #   append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto url=tftp://{{ tftpserver_bind_address }}/preseed.cfg'
-  # - label: 'CentOS 7 (Manual)'
-  #   menu_label: 'CentOS 7 (Manual)'
-  #   menu_default: false
-  #   kernel: 'images/CentOS/7/images/pxeboot/vmlinuz'
-  #   append: 'auto=true priority=critical vga=normal initrd=tftp://{{ tftpserver_bind_address }}/images/CentOS/7/images/pxeboot/initrd.img ip=dhcp inst.repo=http://{{ tftpserver_bind_address }}/images/CentOS/7'
-  # - label: 'Ubuntu 12.04.5 (Manual)'
-  #   menu_label: 'Install Ubuntu 12.04.5 (Manual)'
-  #   menu_default: false
-  #   kernel: 'images/Ubuntu/12.04/install/netboot/ubuntu-installer/amd64/linux'
-  #   append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/12.04/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/12.04/install/filesystem.squashfs'
-  # - label: 'Ubuntu 12.04.5 (Pre-Seed)'
-  #   menu_label: 'Install Ubuntu 12.04.5 (Pre-Seed)'
-  #   menu_default: false
-  #   kernel: 'images/Ubuntu/12.04/install/netboot/ubuntu-installer/amd64/linux'
-  #   append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/12.04/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto url=tftp://{{ tftpserver_bind_address }}/ubuntu_12.04_preseed.cfg live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/12.04/install/filesystem.squashfs'
-  # - label: 'Ubuntu 14.04.2 (Manual)'
-  #   menu_label: 'Install Ubuntu 14.04.2 (Manual)'
-  #   menu_default: false
-  #   kernel: 'images/Ubuntu/14.04/install/netboot/ubuntu-installer/amd64/linux'
-  #   append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/14.04/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/14.04/install/filesystem.squashfs'
+  - label: 'install'
+    menu_label: Install
+    menu_default: false
+    kernel: 'ubuntu-installer/amd64/linux'
+    append: 'vga=788 initrd=ubuntu-installer/amd64/initrd.gz -- quiet'
+  - label: 'cli'
+    menu_label: 'Command-line install'
+    menu_default: false
+    kernel: 'ubuntu-installer/amd64/linux'
+    append: 'tasks=standard pkgsel/language-pack-patterns= pkgsel/install-language-support=false vga=788 initrd=ubuntu-installer/amd64/initrd.gz -- quiet'
+  - label: 'auto-install Ubuntu Netboot (Latest)'
+    menu_label: 'Automated install Ubuntu (Latest)'
+    menu_default: false
+    kernel: 'ubuntu-installer/amd64/linux'
+    append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto url=tftp://{{ tftpserver_bind_address }}/preseed.cfg'
+  - label: 'CentOS 7 (Manual)'
+    menu_label: 'CentOS 7 (Manual)'
+    menu_default: false
+    kernel: 'images/CentOS/7/images/pxeboot/vmlinuz'
+    append: 'auto=true priority=critical vga=normal initrd=tftp://{{ tftpserver_bind_address }}/images/CentOS/7/images/pxeboot/initrd.img ip=dhcp inst.repo=http://{{ tftpserver_bind_address }}/images/CentOS/7'
+  - label: 'Ubuntu 12.04.5 (Manual)'
+    menu_label: 'Install Ubuntu 12.04.5 (Manual)'
+    menu_default: false
+    kernel: 'images/Ubuntu/12.04/install/netboot/ubuntu-installer/amd64/linux'
+    append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/12.04/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/12.04/install/filesystem.squashfs'
+  - label: 'Ubuntu 12.04.5 (Pre-Seed)'
+    menu_label: 'Install Ubuntu 12.04.5 (Pre-Seed)'
+    menu_default: false
+    kernel: 'images/Ubuntu/12.04/install/netboot/ubuntu-installer/amd64/linux'
+    append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/12.04/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto url=tftp://{{ tftpserver_bind_address }}/ubuntu_12.04_preseed.cfg live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/12.04/install/filesystem.squashfs'
+  - label: 'Ubuntu 14.04.2 (Manual)'
+    menu_label: 'Install Ubuntu 14.04.2 (Manual)'
+    menu_default: false
+    kernel: 'images/Ubuntu/14.04/install/netboot/ubuntu-installer/amd64/linux'
+    append: 'auto=true priority=critical vga=788 initrd=tftp://{{ tftpserver_bind_address }}/images/Ubuntu/14.04/install/netboot/ubuntu-installer/amd64/initrd.gz locale=en_US.UTF-8 kbd-chooser/method=us netcfg/choose_interface=auto live-installer/net-image=http://{{ tftpserver_bind_address }}/images/Ubuntu/14.04/install/filesystem.squashfs'
   - label: 'Ubuntu 14.04.5 (Pre-Seed)'
     menu_label: 'Install Ubuntu 14.04.5 (Pre-Seed)'
     menu_default: false
@@ -129,18 +136,18 @@ tftpserver_esxi_global_network_options:
     create_default_portgroup: false
     interface: 'vmnic0'
 tftpserver_esxi_hosts: []
-#  - name: 'esxi01'
-#    bootproto: 'dhcp'
-#    create_default_portgroup: false
-#    interface: 'vmnic0'
-#  - name: 'esxi02'
-#    bootproto: 'static'
-#    create_default_portgroup: false
-#    interface: 'vmnic0'
-#    ip: '10.0.106.22'
-#    netmask: '255.255.255.0'
-#    gateway: '10.0.106.1'
-#    nameservers: ''
+  - name: 'esxi01'
+    bootproto: 'dhcp'
+    create_default_portgroup: false
+    interface: 'vmnic0'
+  - name: 'esxi02'
+    bootproto: 'static'
+    create_default_portgroup: false
+    interface: 'vmnic0'
+    ip: '10.0.106.22'
+    netmask: '255.255.255.0'
+    gateway: '10.0.106.1'
+    nameservers: ''
 
 # Example options are... install --firstdisk=usb --overwritevmfs --novmfsondisk
 # or ... install --firstdisk --overwritevmfs
@@ -165,16 +172,16 @@ tftpserver_esxi_vibs:
 
 tftpserver_images_folders:
   - 'CentOS/7'
-  # - 'ESXi/5.1'
-  # - 'ESXi/5.1U1'
-  # - 'ESXi/5.1U2'
-  # - 'ESXi/5.5'
-  # - 'ESXi/5.5U1'
-  # - 'ESXi/5.5U2'
+  - 'ESXi/5.1'
+  - 'ESXi/5.1U1'
+  - 'ESXi/5.1U2'
+  - 'ESXi/5.5'
+  - 'ESXi/5.5U1'
+  - 'ESXi/5.5U2'
   - 'ESXi/5.5U3'
-  # - 'ESXi/6.0'
+  - 'ESXi/6.0'
   - 'ESXi/6.0U1'
-  # - 'Ubuntu/12.04'
+  - 'Ubuntu/12.04'
   - 'Ubuntu/14.04'
   - 'Ubuntu/16.04'
 
@@ -294,16 +301,13 @@ tftpserver_vmware_iso_images: []
 #    folder: ESXi/6.0U1
 ```
 
-Dependencies
-------------
+## Dependencies
 Install the required Ansible roles by running:
 `ansible-galaxy install -r requirements.yml`
 
-Example Playbook
-----------------
+## Example Playbook
 
 ```
----
 - hosts: all
   become: true
   vars:
@@ -374,13 +378,11 @@ Example Playbook
     - role: ansible-tftpserver
 ```
 
-License
--------
+## License
 
 BSD
 
-Author Information
-------------------
+## Author Information
 
 Larry Smith Jr.
 - @mrlesmithjr
