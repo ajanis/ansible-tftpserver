@@ -384,6 +384,8 @@ LocalDirs: acng-doc /usr/share/doc/apt-cacher-ng
 {%   for item in tftpserver_apt_cacher_passthrough_patterns %}
 PassThroughPattern: {{ item }}
 {%   endfor %}
+{% else %}
+PassThroughPattern: *
 {% endif %}
 
 # It's possible that an evil client requests a volatile file but does not
