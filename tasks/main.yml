@@ -3,8 +3,6 @@
 
 - include: debian.yml
   when: ansible_os_family == "Debian"
-  tags:
-    - always
 
 - name: Configure TFTP Server
   include_tasks: config_tftp.yml
